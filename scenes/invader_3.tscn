@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4px056wnved5"]
+
+[ext_resource type="Script" path="res://scenes/invader3.gd" id="1_44bfb"]
+[ext_resource type="Texture2D" uid="uid://d126m6klaiynm" path="res://assets/Invaders/Invader3-1.png" id="2_6v8mr"]
+[ext_resource type="Texture2D" uid="uid://cja6cyg83b7xj" path="res://assets/Invaders/Invader3-2.png" id="3_gd4hx"]
+[ext_resource type="Texture2D" uid="uid://ewkceybn1hof" path="res://assets/Invaders/Invader-explosion-1.png" id="4_7et7o"]
+[ext_resource type="Texture2D" uid="uid://dmo5q4gha3dtc" path="res://assets/Invaders/Invader-explosion-2.png" id="5_yoy8j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ss6jg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6v8mr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gd4hx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_7et7o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yoy8j")
+}],
+"loop": false,
+"name": &"destruction",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mte5"]
+size = Vector2(12, 8)
+
+[node name="Invader_3" type="Area2D" groups=["Invaders"]]
+script = ExtResource("1_44bfb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_ss6jg")
+animation = &"destruction"
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_0mte5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

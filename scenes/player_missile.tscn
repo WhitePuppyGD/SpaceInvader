@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxey28qdawa85"]
+
+[ext_resource type="Script" path="res://scenes/player_missile.gd" id="1_37w57"]
+[ext_resource type="Texture2D" uid="uid://d3vbgbj3m8pew" path="res://assets/Weapons/Laser.png" id="1_pbcwa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tebe"]
+size = Vector2(1, 6.755)
+
+[node name="Player_Missile" type="Area2D"]
+script = ExtResource("1_37w57")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = ExtResource("1_pbcwa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10.4)
+shape = SubResource("RectangleShape2D_0tebe")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

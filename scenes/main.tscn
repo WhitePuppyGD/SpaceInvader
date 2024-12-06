@@ -1,0 +1,164 @@
+[gd_scene load_steps=12 format=3 uid="uid://dg8cbtytvqa5s"]
+
+[ext_resource type="PackedScene" uid="uid://bty28fk3hv4xe" path="res://scenes/invader_1.tscn" id="1_emyqp"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_t025u"]
+[ext_resource type="PackedScene" uid="uid://bol6r02cbnwuy" path="res://scenes/invader_2.tscn" id="2_ilnwo"]
+[ext_resource type="Shader" path="res://shaders/space_background.gdshader" id="2_mk1au"]
+[ext_resource type="PackedScene" uid="uid://c4px056wnved5" path="res://scenes/invader_3.tscn" id="4_kxtvc"]
+[ext_resource type="PackedScene" uid="uid://l3tlryaoc6qt" path="res://scenes/player.tscn" id="5_apss1"]
+[ext_resource type="Texture2D" uid="uid://b123jne1ivb2i" path="res://assets/space.jpg" id="6_2l4uk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtbhb"]
+shader = ExtResource("2_mk1au")
+shader_parameter/speed = 0.01
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvgcs"]
+size = Vector2(45.25, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2wgm"]
+size = Vector2(34.5, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qljha"]
+size = Vector2(1997, 34)
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_t025u")
+
+[node name="Space" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_vtbhb")
+position = Vector2(967, 665)
+texture = ExtResource("6_2l4uk")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+position = Vector2(1943, 540)
+shape = SubResource("RectangleShape2D_yvgcs")
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(367, 37)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+position = Vector2(-384, 503)
+shape = SubResource("RectangleShape2D_j2wgm")
+
+[node name="TopWall" type="Area2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall"]
+position = Vector2(965.5, -17)
+shape = SubResource("RectangleShape2D_qljha")
+
+[node name="Invaders" type="Node2D" parent="."]
+
+[node name="Invader_1" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(256, 368)
+
+[node name="Invader_17" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(367, 368)
+
+[node name="Invader_18" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(480, 368)
+
+[node name="Invader_19" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(592, 368)
+
+[node name="Invader_20" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(703, 368)
+
+[node name="Invader_21" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(816, 368)
+
+[node name="Invader_22" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(928, 368)
+
+[node name="Invader_23" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(1039, 368)
+
+[node name="Invader_24" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(1152, 368)
+
+[node name="Invader_25" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(1264, 368)
+
+[node name="Invader_26" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(1375, 368)
+
+[node name="Invader_27" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(1488, 368)
+
+[node name="Invader_28" parent="Invaders" instance=ExtResource("1_emyqp")]
+position = Vector2(1592, 368)
+
+[node name="Invader_2" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(376, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_29" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(232, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_11" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(520, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_12" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(663, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_13" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(800, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_14" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(936, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_15" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(1072, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_16" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(1208, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_30" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(1348, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_31" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(1488, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_32" parent="Invaders" instance=ExtResource("2_ilnwo")]
+position = Vector2(1624, 248)
+scale = Vector2(1, 1)
+
+[node name="Invader_3" parent="Invaders" instance=ExtResource("4_kxtvc")]
+position = Vector2(256, 112)
+
+[node name="Invader_4" parent="Invaders" instance=ExtResource("4_kxtvc")]
+position = Vector2(448, 112)
+
+[node name="Invader_5" parent="Invaders" instance=ExtResource("4_kxtvc")]
+position = Vector2(640, 112)
+
+[node name="Invader_6" parent="Invaders" instance=ExtResource("4_kxtvc")]
+position = Vector2(832, 112)
+
+[node name="Invader_7" parent="Invaders" instance=ExtResource("4_kxtvc")]
+position = Vector2(1024, 112)
+
+[node name="Invader_8" parent="Invaders" instance=ExtResource("4_kxtvc")]
+position = Vector2(1216, 112)
+
+[node name="Invader_9" parent="Invaders" instance=ExtResource("4_kxtvc")]
+position = Vector2(1408, 112)
+
+[node name="Invader_10" parent="Invaders" instance=ExtResource("4_kxtvc")]
+position = Vector2(1600, 112)
+
+[node name="PlayerShip" parent="." instance=ExtResource("5_apss1")]
+position = Vector2(960, 1018)
