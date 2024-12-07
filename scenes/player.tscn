@@ -18,3 +18,5 @@ texture = ExtResource("1_krkra")
 position = Vector2(0, -0.00499995)
 scale = Vector2(1.08, 1.08)
 shape = SubResource("RectangleShape2D_q8wj4")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

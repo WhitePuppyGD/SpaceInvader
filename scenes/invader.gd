@@ -1,25 +1,49 @@
-extends Area2D
+extends CharacterBody2D
 
-var direction = 1.0
+@onready var invader_missile_scene = preload("res://scenes/invader_missile.tscn")
+
+var direction = Vector2(1, 0)
 var speed = 100
+var acceleration = 1.08
 
 var invader_points = 0
 
+var rng := RandomNumberGenerator.new()
+
 signal invader_collision_with_wall_detected(body)
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	
+	velocity = direction * speed
+	move_and_slide()
+
+	# Voici comment on gère les collisions après un déplacement
+	# d'un CharacterBody2D
+	for i in range(get_slide_collision_count()):
+		var collider = get_slide_collision(i).get_collider()
+		if collider.is_in_group("LateralWalls"):
+			emit_signal("invader_collision_with_wall_detected", collider)
+
+
 func _process(delta: float) -> void:
-	position.x += direction * delta * speed
+	if rng.randi_range(0, 1000) > 999:
+		shoot()
+
+
+func shoot() -> void:
+	var invader_missile = invader_missile_scene.instantiate()
+	invader_missile.position = position
+	get_parent().add_child(invader_missile)
 
 func destruction() -> int:
 	
+	# On joue l'animation "destruction" du AnimatedSprite2D
 	var sprite = get_node("AnimatedSprite2D")
-
 	sprite.play("destruction")
 
 	# On check si le signal est déjà connecté (on peut revenir dans cette fonction alors que l'objet
@@ -33,17 +57,12 @@ func destruction() -> int:
 func _on_destruction_animation_finished():
 	call_deferred("queue_free")
 
-
 func get_points() -> int:
 	return self.invader_points
 
 func increase_speed() -> void:
-	speed += 30
+	speed *= acceleration
 
 func reverse_direction() -> void:
 	direction = -direction
 	position.y += 10
-
-# Quand l'Area2D entre en collision avec un mur
-func _on_body_entered(body: Node2D) -> void:
-	emit_signal("invader_collision_with_wall_detected", body)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dg8cbtytvqa5s"]
+[gd_scene load_steps=13 format=3 uid="uid://dg8cbtytvqa5s"]
 
 [ext_resource type="PackedScene" uid="uid://bty28fk3hv4xe" path="res://scenes/invader_1.tscn" id="1_emyqp"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_t025u"]
@@ -21,6 +21,9 @@ size = Vector2(34.5, 1080)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qljha"]
 size = Vector2(1997, 34)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7l7h"]
+size = Vector2(1918, 14)
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_t025u")
 
@@ -32,13 +35,13 @@ texture = ExtResource("6_2l4uk")
 
 [node name="Walls" type="Node2D" parent="."]
 
-[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+[node name="LeftWall" type="StaticBody2D" parent="Walls" groups=["LateralWalls"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
 position = Vector2(1943, 540)
 shape = SubResource("RectangleShape2D_yvgcs")
 
-[node name="RightWall" type="StaticBody2D" parent="Walls"]
+[node name="RightWall" type="StaticBody2D" parent="Walls" groups=["LateralWalls"]]
 position = Vector2(367, 37)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
@@ -50,6 +53,13 @@ shape = SubResource("RectangleShape2D_j2wgm")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall"]
 position = Vector2(965.5, -17)
 shape = SubResource("RectangleShape2D_qljha")
+
+[node name="BottomWall" type="Area2D" parent="Walls"]
+position = Vector2(0, 102)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
+position = Vector2(960, 966)
+shape = SubResource("RectangleShape2D_p7l7h")
 
 [node name="Invaders" type="Node2D" parent="."]
 
