@@ -10,10 +10,8 @@ var invader_points = 0
 
 var rng := RandomNumberGenerator.new()
 
-signal invader_collision_with_wall_detected(body)
-
-func _ready() -> void:
-	pass
+signal invader_collision_with_wall_detected
+signal invader_missile_collision_with_area_detected
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,6 +36,7 @@ func _process(delta: float) -> void:
 func shoot() -> void:
 	var invader_missile = invader_missile_scene.instantiate()
 	invader_missile.position = position
+	invader_missile.connect("invader_missile_collision_with_area_detected", Callable(self, "_on_invader_missile_collision_with_area_detected"))
 	get_parent().add_child(invader_missile)
 
 func destruction() -> int:
@@ -54,8 +53,6 @@ func destruction() -> int:
 	var points = get_points()
 	return points
 
-func _on_destruction_animation_finished():
-	call_deferred("queue_free")
 
 func get_points() -> int:
 	return self.invader_points
@@ -66,3 +63,9 @@ func increase_speed() -> void:
 func reverse_direction() -> void:
 	direction = -direction
 	position.y += 10
+
+func _on_destruction_animation_finished():
+	call_deferred("queue_free")
+	
+func _on_invader_missile_collision_with_area_detected(missile: Area2D, area: Area2D) -> void:
+	emit_signal("invader_missile_collision_with_area_detected", missile, area)

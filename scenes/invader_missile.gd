@@ -1,19 +1,14 @@
 extends Area2D
 
-signal invader_missile_collision_detected
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+signal invader_missile_collision_with_area_detected
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	position.y += 1
-	pass
 
+func destruction() -> void:
+	queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.name == "BottomWall":
-		queue_free()
-	pass # Replace with function body.
+	emit_signal("invader_missile_collision_with_area_detected", self, area)

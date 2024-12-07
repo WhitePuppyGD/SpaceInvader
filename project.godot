@@ -26,6 +26,7 @@ window/size/resizable=false
 Invaders=""
 LateralWalls=""
 PlayerMissiles=""
+InvaderMissiles=""
 
 [rendering]
 
