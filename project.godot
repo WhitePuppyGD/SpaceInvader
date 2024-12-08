@@ -26,7 +26,17 @@ window/size/resizable=false
 Invaders=""
 LateralWalls=""
 PlayerMissiles=""
-InvaderMissiles=""
+InvadersMissiles=""
+
+[layer_names]
+
+2d_render/layer_1="Ship"
+2d_render/layer_2="Invaders"
+2d_render/layer_3="InvadersMissiles"
+2d_physics/layer_1="Ship"
+2d_physics/layer_2="Invaders"
+2d_physics/layer_3="Invaders Missiles"
+2d_physics/layer_4="Player Missile"
 
 [rendering]
 

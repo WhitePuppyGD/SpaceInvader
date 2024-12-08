@@ -7,6 +7,9 @@ var speed = 100
 var acceleration = 1.08
 
 var invader_points = 0
+var probability_to_shoot : int = 999
+
+var authorisation_to_shoot : bool = true
 
 var rng := RandomNumberGenerator.new()
 
@@ -29,15 +32,18 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-	if rng.randi_range(0, 1000) > 999:
+	if rng.randi_range(0, 1000) > probability_to_shoot:
 		shoot()
 
+func set_authorisation_to_shoot(order: bool):
+	authorisation_to_shoot = order
 
 func shoot() -> void:
-	var invader_missile = invader_missile_scene.instantiate()
-	invader_missile.position = position
-	invader_missile.connect("invader_missile_collision_with_area_detected", Callable(self, "_on_invader_missile_collision_with_area_detected"))
-	get_parent().add_child(invader_missile)
+	if authorisation_to_shoot:
+		var invader_missile = invader_missile_scene.instantiate()
+		invader_missile.position = position
+		invader_missile.connect("invader_missile_collision_with_area_detected", Callable(self, "_on_invader_missile_collision_with_area_detected"))
+		get_parent().add_child(invader_missile)
 
 func destruction() -> int:
 	
@@ -51,6 +57,9 @@ func destruction() -> int:
 		sprite.connect("animation_finished", Callable(self, "_on_destruction_animation_finished"))
 	
 	var points = get_points()
+	
+	probability_to_shoot -= 10
+	
 	return points
 
 

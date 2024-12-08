@@ -1,22 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://l3tlryaoc6qt"]
+[gd_scene load_steps=8 format=3 uid="uid://l3tlryaoc6qt"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_jp3g8"]
 [ext_resource type="Texture2D" uid="uid://dt0af4o7yh41a" path="res://assets/Player/Player.png" id="1_krkra"]
+[ext_resource type="Texture2D" uid="uid://dst1lr7b51r0d" path="res://assets/Player/Player-explosion1.png" id="3_1fnmm"]
+[ext_resource type="Texture2D" uid="uid://t0kaj08r2ev" path="res://assets/Player/Player-explosion2.png" id="4_h4vu7"]
+[ext_resource type="Texture2D" uid="uid://54ajg6ulvi3b" path="res://assets/Player/Player-explosion3.png" id="5_12334"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q4xot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_krkra")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1fnmm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h4vu7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_12334")
+}],
+"loop": false,
+"name": &"destruction",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8wj4"]
 size = Vector2(12, 7.39815)
 
 [node name="Player" type="Area2D"]
 scale = Vector2(10, 10)
+collision_mask = 5
 script = ExtResource("1_jp3g8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_krkra")
+sprite_frames = SubResource("SpriteFrames_q4xot")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.00499995)
 scale = Vector2(1.08, 1.08)
 shape = SubResource("RectangleShape2D_q8wj4")
+
+[node name="GunPositionMarker" type="Marker2D" parent="."]
+position = Vector2(0, -4.2)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

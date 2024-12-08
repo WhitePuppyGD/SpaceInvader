@@ -29,8 +29,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rx8q3"]
 size = Vector2(2.67593, 6.51)
 
-[node name="Invader_Missile" type="Area2D" groups=["InvaderMissiles"]]
+[node name="Invader_Missile" type="Area2D" groups=["InvadersMissiles"]]
 scale = Vector2(10, 10)
+collision_layer = 4
 script = ExtResource("1_pfc2c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
