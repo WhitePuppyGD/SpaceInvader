@@ -1,13 +1,24 @@
-[gd_scene load_steps=13 format=3 uid="uid://dg8cbtytvqa5s"]
+[gd_scene load_steps=11 format=3 uid="uid://dg8cbtytvqa5s"]
 
-[ext_resource type="PackedScene" uid="uid://bty28fk3hv4xe" path="res://scenes/invader_1.tscn" id="1_emyqp"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_t025u"]
-[ext_resource type="Script" path="res://scenes/score.gd" id="2_f3sw4"]
-[ext_resource type="PackedScene" uid="uid://bol6r02cbnwuy" path="res://scenes/invader_2.tscn" id="2_ilnwo"]
 [ext_resource type="Shader" path="res://shaders/space_background.gdshader" id="2_mk1au"]
 [ext_resource type="PackedScene" uid="uid://b06n1td4ei31r" path="res://UI/hud.tscn" id="3_0rh57"]
-[ext_resource type="PackedScene" uid="uid://c4px056wnved5" path="res://scenes/invader_3.tscn" id="4_kxtvc"]
+[ext_resource type="PackedScene" uid="uid://3gehcvuwo5xo" path="res://scenes/invaders.tscn" id="5_w43jp"]
 [ext_resource type="Texture2D" uid="uid://b123jne1ivb2i" path="res://assets/space.jpg" id="6_2l4uk"]
+
+[sub_resource type="GDScript" id="GDScript_2ad8a"]
+script/source = "extends CanvasLayer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vtbhb"]
 shader = ExtResource("2_mk1au")
@@ -26,7 +37,7 @@ size = Vector2(1918, 14)
 script = ExtResource("1_t025u")
 
 [node name="Score" type="CanvasLayer" parent="."]
-script = ExtResource("2_f3sw4")
+script = SubResource("GDScript_2ad8a")
 
 [node name="HUD" parent="Score" instance=ExtResource("3_0rh57")]
 offset_top = 1.0
@@ -61,111 +72,4 @@ position = Vector2(0, 104)
 position = Vector2(960, 966)
 shape = SubResource("RectangleShape2D_p7l7h")
 
-[node name="Invaders" type="Node2D" parent="."]
-
-[node name="Invader_1" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(271, 367)
-
-[node name="Invader_17" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(382, 367)
-
-[node name="Invader_18" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(495, 367)
-
-[node name="Invader_19" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(607, 367)
-
-[node name="Invader_20" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(718, 367)
-
-[node name="Invader_21" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(831, 367)
-
-[node name="Invader_22" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(943, 367)
-
-[node name="Invader_23" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(1054, 367)
-
-[node name="Invader_24" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(1167, 367)
-
-[node name="Invader_25" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(1279, 367)
-
-[node name="Invader_26" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(1390, 367)
-
-[node name="Invader_27" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(1503, 367)
-
-[node name="Invader_28" parent="Invaders" instance=ExtResource("1_emyqp")]
-position = Vector2(1607, 367)
-
-[node name="Invader_2" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(391, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_29" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(247, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_11" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(535, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_12" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(678, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_13" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(815, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_14" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(951, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_15" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(1087, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_16" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(1223, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_30" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(1363, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_31" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(1503, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_32" parent="Invaders" instance=ExtResource("2_ilnwo")]
-position = Vector2(1639, 247)
-scale = Vector2(1, 1)
-
-[node name="Invader_3" parent="Invaders" instance=ExtResource("4_kxtvc")]
-position = Vector2(271, 111)
-
-[node name="Invader_4" parent="Invaders" instance=ExtResource("4_kxtvc")]
-position = Vector2(463, 111)
-
-[node name="Invader_5" parent="Invaders" instance=ExtResource("4_kxtvc")]
-position = Vector2(655, 111)
-
-[node name="Invader_6" parent="Invaders" instance=ExtResource("4_kxtvc")]
-position = Vector2(847, 111)
-
-[node name="Invader_7" parent="Invaders" instance=ExtResource("4_kxtvc")]
-position = Vector2(1039, 111)
-
-[node name="Invader_8" parent="Invaders" instance=ExtResource("4_kxtvc")]
-position = Vector2(1231, 111)
-
-[node name="Invader_9" parent="Invaders" instance=ExtResource("4_kxtvc")]
-position = Vector2(1423, 111)
-
-[node name="Invader_10" parent="Invaders" instance=ExtResource("4_kxtvc")]
-position = Vector2(1615, 111)
+[node name="Invaders" parent="." instance=ExtResource("5_w43jp")]

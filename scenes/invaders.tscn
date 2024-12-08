@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=3 uid="uid://3gehcvuwo5xo"]
+
+[ext_resource type="PackedScene" uid="uid://bty28fk3hv4xe" path="res://scenes/invader_1.tscn" id="1_gdkta"]
+[ext_resource type="Script" path="res://scenes/invaders.gd" id="1_m3oxj"]
+[ext_resource type="PackedScene" uid="uid://bol6r02cbnwuy" path="res://scenes/invader_2.tscn" id="2_qbwm6"]
+[ext_resource type="PackedScene" uid="uid://c4px056wnved5" path="res://scenes/invader_3.tscn" id="3_min8f"]
+
+[node name="Invaders" type="Node2D"]
+script = ExtResource("1_m3oxj")
+
+[node name="Invader_1" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(271, 367)
+
+[node name="Invader_17" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(382, 367)
+
+[node name="Invader_18" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(495, 367)
+
+[node name="Invader_19" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(607, 367)
+
+[node name="Invader_20" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(718, 367)
+
+[node name="Invader_21" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(831, 367)
+
+[node name="Invader_22" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(943, 367)
+
+[node name="Invader_23" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(1054, 367)
+
+[node name="Invader_24" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(1167, 367)
+
+[node name="Invader_25" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(1279, 367)
+
+[node name="Invader_26" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(1390, 367)
+
+[node name="Invader_27" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(1503, 367)
+
+[node name="Invader_28" parent="." instance=ExtResource("1_gdkta")]
+position = Vector2(1607, 367)
+
+[node name="Invader_2" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(391, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_29" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(247, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_11" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(535, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_12" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(678, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_13" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(815, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_14" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(951, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_15" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(1087, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_16" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(1223, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_30" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(1363, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_31" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(1503, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_32" parent="." instance=ExtResource("2_qbwm6")]
+position = Vector2(1639, 247)
+scale = Vector2(1, 1)
+
+[node name="Invader_3" parent="." instance=ExtResource("3_min8f")]
+position = Vector2(271, 111)
+
+[node name="Invader_4" parent="." instance=ExtResource("3_min8f")]
+position = Vector2(463, 111)
+
+[node name="Invader_5" parent="." instance=ExtResource("3_min8f")]
+position = Vector2(655, 111)
+
+[node name="Invader_6" parent="." instance=ExtResource("3_min8f")]
+position = Vector2(847, 111)
+
+[node name="Invader_7" parent="." instance=ExtResource("3_min8f")]
+position = Vector2(1039, 111)
+
+[node name="Invader_8" parent="." instance=ExtResource("3_min8f")]
+position = Vector2(1231, 111)
+
+[node name="Invader_9" parent="." instance=ExtResource("3_min8f")]
+position = Vector2(1423, 111)
+
+[node name="Invader_10" parent="." instance=ExtResource("3_min8f")]
+position = Vector2(1615, 111)

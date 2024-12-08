@@ -1,13 +1,17 @@
 extends Area2D
 
+
 var missile_speed = 1000
 
 signal missile_collision_with_invader_detected
 signal missile_collision_with_area_detected
 
 
-func set_starting_position(gun_position: Vector2) -> void:
+func init(gun_position: Vector2, signal_target: Node) -> void:
 	position = gun_position
+	connect("missile_collision_with_invader_detected", Callable(signal_target, "_on_player_missile_collision_with_invader_detected"))
+	connect("missile_collision_with_area_detected", Callable(signal_target, "_on_player_missile_collision_with_area_detected"))
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
