@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 var direction = Vector2(1, 0)
 var speed = 100
-var acceleration = 1.08
+var acceleration = 1.04
 
 var invader_points = 0
 var probability_to_shoot : int = 999
@@ -42,7 +42,6 @@ func shoot() -> void:
 	if authorisation_to_shoot:
 		var invader_missile = invader_missile_scene.instantiate()
 		invader_missile.position = position
-		invader_missile.connect("invader_missile_collision_with_area_detected", Callable(self, "_on_invader_missile_collision_with_area_detected"))
 		get_parent().add_child(invader_missile)
 
 func destruction() -> int:
@@ -58,7 +57,7 @@ func destruction() -> int:
 	
 	var points = get_points()
 	
-	probability_to_shoot -= 10
+	probability_to_shoot -= 50
 	
 	return points
 
@@ -66,8 +65,9 @@ func destruction() -> int:
 func get_points() -> int:
 	return self.invader_points
 
-func increase_speed() -> void:
+func increase_speed() -> int:
 	speed *= acceleration
+	return speed
 
 func reverse_direction() -> void:
 	direction = -direction
@@ -75,6 +75,3 @@ func reverse_direction() -> void:
 
 func _on_destruction_animation_finished():
 	call_deferred("queue_free")
-	
-func _on_invader_missile_collision_with_area_detected(missile: Area2D, area: Area2D) -> void:
-	emit_signal("invader_missile_collision_with_area_detected", missile, area)

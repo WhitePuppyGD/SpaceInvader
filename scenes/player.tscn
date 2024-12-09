@@ -36,7 +36,8 @@ size = Vector2(12, 7.39815)
 
 [node name="Player" type="Area2D"]
 scale = Vector2(10, 10)
-collision_mask = 5
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_jp3g8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -53,3 +54,4 @@ shape = SubResource("RectangleShape2D_q8wj4")
 position = Vector2(0, -4.2)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

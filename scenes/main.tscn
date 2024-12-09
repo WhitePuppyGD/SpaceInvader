@@ -3,7 +3,8 @@
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_t025u"]
 [ext_resource type="Shader" path="res://shaders/space_background.gdshader" id="2_mk1au"]
 [ext_resource type="PackedScene" uid="uid://b06n1td4ei31r" path="res://UI/hud.tscn" id="3_0rh57"]
-[ext_resource type="PackedScene" uid="uid://3gehcvuwo5xo" path="res://scenes/invaders.tscn" id="5_w43jp"]
+[ext_resource type="PackedScene" uid="uid://d1smqfeovy6c0" path="res://UI/game_over.tscn" id="3_b7gbr"]
+[ext_resource type="Script" path="res://scenes/invaders_missiles_manager.gd" id="5_wachk"]
 [ext_resource type="Texture2D" uid="uid://b123jne1ivb2i" path="res://assets/space.jpg" id="6_2l4uk"]
 
 [sub_resource type="GDScript" id="GDScript_2ad8a"]
@@ -30,19 +31,19 @@ size = Vector2(45.25, 1080)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2wgm"]
 size = Vector2(34.5, 1080)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7l7h"]
-size = Vector2(1918, 14)
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_t025u")
 
-[node name="Score" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 script = SubResource("GDScript_2ad8a")
 
-[node name="HUD" parent="Score" instance=ExtResource("3_0rh57")]
+[node name="HUD" parent="UI" instance=ExtResource("3_0rh57")]
 offset_top = 1.0
 offset_right = -1920.0
 offset_bottom = -1079.0
+
+[node name="GameOver" parent="UI" instance=ExtResource("3_b7gbr")]
+visible = false
 
 [node name="Space" type="Sprite2D" parent="."]
 texture_repeat = 2
@@ -65,11 +66,5 @@ position = Vector2(367, 37)
 position = Vector2(-384, 503)
 shape = SubResource("RectangleShape2D_j2wgm")
 
-[node name="BottomWall" type="Area2D" parent="Walls"]
-position = Vector2(0, 104)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
-position = Vector2(960, 966)
-shape = SubResource("RectangleShape2D_p7l7h")
-
-[node name="Invaders" parent="." instance=ExtResource("5_w43jp")]
+[node name="InvadersMissilesManager" type="Node" parent="."]
+script = ExtResource("5_wachk")

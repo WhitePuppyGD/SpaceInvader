@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://3gehcvuwo5xo"]
+
+[ext_resource type="Script" path="res://scenes/invaders.gd" id="1_w4ahc"]
+[ext_resource type="PackedScene" uid="uid://bty28fk3hv4xe" path="res://scenes/invader_1.tscn" id="2_ff1hu"]
+[ext_resource type="PackedScene" uid="uid://bol6r02cbnwuy" path="res://scenes/invader_2.tscn" id="3_yuyra"]
+[ext_resource type="PackedScene" uid="uid://c4px056wnved5" path="res://scenes/invader_3.tscn" id="4_6oeef"]
+
+[node name="Invaders" type="Node2D"]
+script = ExtResource("1_w4ahc")
+
+[node name="Invader_21" parent="." instance=ExtResource("2_ff1hu")]
+position = Vector2(611, 867)
+
+[node name="Invader_22" parent="." instance=ExtResource("2_ff1hu")]
+position = Vector2(723, 867)
+
+[node name="Invader_23" parent="." instance=ExtResource("2_ff1hu")]
+position = Vector2(834, 867)
+
+[node name="Invader_13" parent="." instance=ExtResource("3_yuyra")]
+position = Vector2(595, 747)
+scale = Vector2(1, 1)
+
+[node name="Invader_14" parent="." instance=ExtResource("3_yuyra")]
+position = Vector2(731, 747)
+scale = Vector2(1, 1)
+
+[node name="Invader_15" parent="." instance=ExtResource("3_yuyra")]
+position = Vector2(867, 747)
+scale = Vector2(1, 1)
+
+[node name="Invader_6" parent="." instance=ExtResource("4_6oeef")]
+position = Vector2(627, 611)
+
+[node name="Invader_7" parent="." instance=ExtResource("4_6oeef")]
+position = Vector2(819, 611)

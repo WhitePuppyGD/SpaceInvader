@@ -3,11 +3,11 @@ extends Area2D
 @export var missile_scene : PackedScene = preload("res://scenes/player_missile.tscn")
 @onready var gun_position_marker: Marker2D = $GunPositionMarker
 
-signal player_ship_collision_with_area_detected
+signal player_ship_collision_with_something_detected
 signal player_missile_collision_with_invader_detected
 signal player_missile_collision_with_area_detected
 
-@export var game_manager : Node
+var game_manager : Node
 
 # On tente un setter/getter pour voir
 var player_ship_alive : bool = true:
@@ -34,13 +34,13 @@ func init(max_pos : int, signal_target: Node ):
 
 
 func connect_signals(signal_target: Node) -> void:
-	connect("player_ship_collision_with_area_detected", Callable(signal_target, "_on_player_ship_collision_with_area_detected"))
+	connect("player_ship_collision_with_something_detected", Callable(signal_target, "_on_player_ship_collision_with_something_detected"))
 
 
 func shoot_missile() -> void:
 	var missile = missile_scene.instantiate()
-	missile.init(gun_position_marker.global_position, game_manager)
 	get_parent().add_child(missile)
+	missile.init(gun_position_marker.global_position, game_manager)
 
 
 func destruction() -> void:
@@ -66,5 +66,9 @@ func _on_destruction_animation_finished():
 func _on_missile_collision_with_area_detected(missile: Area2D, area: Area2D) -> void:
 	emit_signal("player_missile_collision_with_area_detected", missile, area)
 
-func _on_area_entered(area: Area2D) -> void:
-	emit_signal("player_ship_collision_with_area_detected", area)
+
+func _on_area_entered(area: Node2D) -> void:
+	emit_signal("player_ship_collision_with_something_detected", area)
+
+func _on_body_entered(body: Node2D) -> void:
+	emit_signal("player_ship_collision_with_something_detected", body)

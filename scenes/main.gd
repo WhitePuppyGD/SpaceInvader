@@ -1,9 +1,13 @@
 extends Node2D
 
 @export var player_ship_scene: PackedScene = preload("res://scenes/player.tscn")
+@export var invaders_scene: PackedScene = preload("res://scenes/invaders.tscn")
 
-@onready var invaders_group = get_tree().get_nodes_in_group("Invaders")
-@onready var hud: HUD = $Score/HUD
+
+@onready var hud_ui: HUD = $UI/HUD
+@onready var game_over_ui: Control = $UI/GameOver
+
+@onready var invaders_missiles_manager: Node = $InvadersMissilesManager
 
 @onready var screen_width = get_viewport_rect().size[0]
 @onready var screen_height = get_viewport_rect().size[1]
@@ -11,16 +15,31 @@ extends Node2D
 @onready var rng = RandomNumberGenerator.new()
 
 @onready var player_ship = null
+@onready var invaders = null
+
+@export var invaders_speed = 100
+
+
+# C'est MOCHE ! Je gère les scores ici et aussi dans le HUD
+@export var count_max_player_life :int = 3
+@export var count_player_life :int = count_max_player_life
 
 var max_player_missiles_in_scene = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	connect_signals_to_invaders()
 	player_ship = spawn_player_ship()
+	invaders = spawn_invaders()
+	game_over_ui.connect("restart_button_pressed", Callable(self, "_on_restart_button_pressed"))
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func restart() -> void:
+	invaders_speed = 100
+	player_ship = spawn_player_ship()
+	invaders = spawn_invaders()
+	count_player_life = count_max_player_life
+	hud_ui.init()
+	
+	
 func _process(delta: float) -> void:
 	
 	# Si le vaisseau est toujours en vie
@@ -28,78 +47,91 @@ func _process(delta: float) -> void:
 		player_ship.move_ship(Input.get_axis("ui_left", "ui_right"), delta)
 	
 		if Input.is_action_just_pressed("ui_accept"):
-			if cnt_player_missiles() <= max_player_missiles_in_scene:	
+			if invaders_missiles_manager.cnt_player_missiles() <= max_player_missiles_in_scene:	
 				player_ship.shoot_missile()
-	
-	
+		
+		if is_instance_valid(invaders) && invaders.count_invaders == 0:
+			invaders = spawn_invaders()
+		
+
 func spawn_player_ship() -> Area2D:
-	var ship = player_ship_scene.instantiate()
-	ship.init(screen_width, self)
-	add_child(ship)
-	return ship
+	var obj = player_ship_scene.instantiate()
+	obj.player_ship_alive = true
+	add_child(obj)
+	obj.init(screen_width, self)
+	return obj
 
+func spawn_invaders() -> Node2D:
+	var obj = invaders_scene.instantiate()
+	add_child(obj)
 
-# Compte combien de missiles il y a dans la Scene Principale
-# Le nb de missiles est limité à max_player_missiles_in_scene
-func cnt_player_missiles() -> int:
-	return get_tree().get_nodes_in_group("PlayerMissiles").size()
+	invaders_speed += 100
+	
+	if is_instance_valid(invaders):
+		invaders.queue_free()
+	
+	obj.init(self, invaders_speed)
+	
+	invaders_missiles_manager.delete_invaders_missiles()
 
-
-func increase_invaders_speed() -> void:
-	for invader in invaders_group:
-		if is_instance_valid(invader):
-			invader.increase_speed()
-
-
-func delete_invaders_missiles() -> void:
-	for invader_missile in get_tree().get_nodes_in_group("InvadersMissiles"):
-		invader_missile.queue_free()
-
-func invaders_authorisation_to_shoot(order: bool) -> void:
-	for invader in invaders_group:
-		if is_instance_valid(invader):
-			invader.set_authorisation_to_shoot(order)
-
-
-# Connection du signal émis par les murs lorsqu'un invader entre en collision avec
-func connect_signals_to_invaders() -> void:
-	for invader in invaders_group:
-		invader.connect("invader_collision_with_wall_detected", Callable(self, "_on_invader_collision_with_wall_detected"))
-		invader.connect("invader_missile_collision_with_area_detected", Callable(self, "_on_invader_missile_collision_with_area_detected"))
+	return obj
 
 
 # Mort du vaisseau
-func _on_player_ship_collision_with_area_detected(area: Area2D):
-	if area.is_in_group("InvadersMissiles"):
-		player_ship.player_ship_alive = false
-		delete_invaders_missiles()
-		player_ship.destruction()
-		invaders_authorisation_to_shoot(false)
-		
-	await get_tree().create_timer(1.0).timeout
+func _on_player_ship_collision_with_something_detected(area: Node2D):
 	
-	player_ship = spawn_player_ship()
-	player_ship.player_ship_alive = true
-	invaders_authorisation_to_shoot(true)
+	if area.is_in_group("InvadersMissiles") && player_ship.player_ship_alive:
 
+		destroy_player_ship()
+	
+		count_player_life -= 1
+
+		hud_ui.update_life(count_player_life)
+				
+		await get_tree().create_timer(1.0).timeout
+	
+		player_ship = spawn_player_ship()
+		
+		if is_instance_valid(invaders):
+			invaders.authorisation_to_shoot(true)
+	else:
+		game_over()
+	
+	if count_player_life == 0:
+		game_over()
+
+func game_over() -> void:
+	print("GAME OVER")
+	destroy_player_ship()
+	invaders.queue_free()
+	
+	# On flush tout ce que se passe
+	await get_tree().process_frame 
+	game_over_ui.visible = true
+
+
+func destroy_player_ship() -> void:
+
+	player_ship.player_ship_alive = false
+	invaders_missiles_manager.delete_invaders_missiles()
+	player_ship.destruction()
+	invaders.authorisation_to_shoot(false)
+
+
+
+func _on_player_missile_collision_with_invader_detected(missile, invader):
+	
+	hud_ui.update_score(invader.destruction())
+	missile.destruction()
+	invaders.increase_speed()
+
+func _on_restart_button_pressed() -> void:
+	restart()
+	game_over_ui.visible = false
 
 
 func _on_player_missile_collision_with_area_detected(missile, area):
 	pass
-
-func _on_player_missile_collision_with_invader_detected(missile, invader):
-	hud.update_score(invader.destruction())
-	missile.destruction()
-	increase_invaders_speed()
-	
 	
 func _on_invader_missile_collision_with_area_detected(missile: Area2D, area: Area2D) -> void:
-	if area.name == "BottomWall":
-		missile.destruction()
-		
-
-# Quand un invader touche un mur latéral, on change la direction de tous les invaders
-func _on_invader_collision_with_wall_detected(body: Node2D):
-	for invader in invaders_group:
-		if is_instance_valid(invader):
-			invader.reverse_direction()
+	pass		
