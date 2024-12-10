@@ -101,7 +101,6 @@ func _on_player_ship_collision_with_something_detected(area: Node2D):
 		game_over()
 
 func game_over() -> void:
-	print("GAME OVER")
 	destroy_player_ship()
 	invaders.queue_free()
 	
@@ -117,8 +116,6 @@ func destroy_player_ship() -> void:
 	player_ship.destruction()
 	invaders.authorisation_to_shoot(false)
 
-
-
 func _on_player_missile_collision_with_invader_detected(missile, invader):
 	
 	hud_ui.update_score(invader.destruction())
@@ -128,10 +125,3 @@ func _on_player_missile_collision_with_invader_detected(missile, invader):
 func _on_restart_button_pressed() -> void:
 	restart()
 	game_over_ui.visible = false
-
-
-func _on_player_missile_collision_with_area_detected(missile, area):
-	pass
-	
-func _on_invader_missile_collision_with_area_detected(missile: Area2D, area: Area2D) -> void:
-	pass		

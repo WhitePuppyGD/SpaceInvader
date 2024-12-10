@@ -1,6 +1,7 @@
 extends Node2D
 
 var count_invaders = 0
+@onready var invader_sound_effect: AudioStreamPlayer = $Timer/InvaderSoundEffect
 
 @onready var invaders_group:
 	get:
@@ -44,3 +45,7 @@ func _on_invader_collision_with_wall_detected(body: Node2D):
 	for invader in invaders_group:
 		if is_instance_valid(invader):
 			invader.reverse_direction()
+
+
+func _on_timer_timeout() -> void:
+	invader_sound_effect.play()

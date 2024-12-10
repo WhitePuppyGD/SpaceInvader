@@ -6,4 +6,4 @@ func _on_restart_button_pressed() -> void:
 	restart_button_pressed.emit()
 
 func _on_quit_button_pressed() -> void:
-	pass
+	get_tree().quit()

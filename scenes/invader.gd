@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var invader_missile_scene = preload("res://scenes/invader_missile.tscn")
+@onready var destruction_sound_effect: AudioStreamPlayer = $DestructionSoundEffect
 
 var direction = Vector2(1, 0)
 var speed = 100
@@ -31,9 +32,12 @@ func _physics_process(delta: float) -> void:
 			emit_signal("invader_collision_with_wall_detected", collider)
 
 
+
+
 func _process(delta: float) -> void:
 	if rng.randi_range(0, 1000) > probability_to_shoot:
 		shoot()
+
 
 func set_authorisation_to_shoot(order: bool):
 	authorisation_to_shoot = order
@@ -49,6 +53,8 @@ func destruction() -> int:
 	# On joue l'animation "destruction" du AnimatedSprite2D
 	var sprite = get_node("AnimatedSprite2D")
 	sprite.play("destruction")
+	
+	destruction_sound_effect.play()
 
 	# On check si le signal est déjà connecté (on peut revenir dans cette fonction alors que l'objet
 	# n'a pas encore été détruit dans l'arbre

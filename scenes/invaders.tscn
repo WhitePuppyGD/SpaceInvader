@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6ddijvxi886q"]
+[gd_scene load_steps=6 format=3 uid="uid://b6ddijvxi886q"]
 
 [ext_resource type="Script" path="res://scenes/invaders.gd" id="1_3slpp"]
 [ext_resource type="PackedScene" uid="uid://bty28fk3hv4xe" path="res://scenes/invader_1.tscn" id="2_monl4"]
 [ext_resource type="PackedScene" uid="uid://bol6r02cbnwuy" path="res://scenes/invader_2.tscn" id="3_qa1ob"]
 [ext_resource type="PackedScene" uid="uid://c4px056wnved5" path="res://scenes/invader_3.tscn" id="4_7aa6k"]
+[ext_resource type="AudioStream" uid="uid://cajd8gdtt52o6" path="res://assets/sounds/fastinvader1.wav" id="5_vpi2f"]
 
 [node name="Invaders" type="Node2D"]
 script = ExtResource("1_3slpp")
@@ -114,3 +115,12 @@ position = Vector2(1423, 111)
 
 [node name="Invader_10" parent="." instance=ExtResource("4_7aa6k")]
 position = Vector2(1615, 111)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="InvaderSoundEffect" type="AudioStreamPlayer" parent="Timer"]
+stream = ExtResource("5_vpi2f")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

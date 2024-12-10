@@ -2,6 +2,8 @@ extends Area2D
 
 @export var missile_scene : PackedScene = preload("res://scenes/player_missile.tscn")
 @onready var gun_position_marker: Marker2D = $GunPositionMarker
+@onready var shoot_sound_effect: AudioStreamPlayer = $ShootSoundEffect
+@onready var destruction_sound_effect: AudioStreamPlayer = $DestructionSoundEffect
 
 signal player_ship_collision_with_something_detected
 signal player_missile_collision_with_invader_detected
@@ -41,12 +43,16 @@ func shoot_missile() -> void:
 	var missile = missile_scene.instantiate()
 	get_parent().add_child(missile)
 	missile.init(gun_position_marker.global_position, game_manager)
+	shoot_sound_effect.play()
 
 
 func destruction() -> void:
 	# On joue l'animation "destruction" du AnimatedSprite2D
 	var sprite = get_node("AnimatedSprite2D")
 	sprite.play("destruction")
+	
+	destruction_sound_effect.play()
+	
 	if not sprite.is_connected("animation_finished", Callable(self, "_on_destruction_animation_finished")):
 		sprite.connect("animation_finished", Callable(self, "_on_destruction_animation_finished"))
 

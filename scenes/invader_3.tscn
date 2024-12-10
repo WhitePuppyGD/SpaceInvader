@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4px056wnved5"]
+[gd_scene load_steps=9 format=3 uid="uid://c4px056wnved5"]
 
 [ext_resource type="Script" path="res://scenes/invader3.gd" id="1_44bfb"]
 [ext_resource type="Texture2D" uid="uid://d126m6klaiynm" path="res://assets/Invaders/Invader3-1.png" id="2_6v8mr"]
 [ext_resource type="Texture2D" uid="uid://cja6cyg83b7xj" path="res://assets/Invaders/Invader3-2.png" id="3_gd4hx"]
 [ext_resource type="Texture2D" uid="uid://ewkceybn1hof" path="res://assets/Invaders/Invader-explosion-1.png" id="4_7et7o"]
 [ext_resource type="Texture2D" uid="uid://dmo5q4gha3dtc" path="res://assets/Invaders/Invader-explosion-2.png" id="5_yoy8j"]
+[ext_resource type="AudioStream" uid="uid://c0uwhnivwkxp1" path="res://assets/sounds/invaderkilled.wav" id="6_78l63"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ss6jg"]
 animations = [{
@@ -47,3 +48,6 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_0mte5")
+
+[node name="DestructionSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_78l63")
